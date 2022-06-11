@@ -1,0 +1,185 @@
+@import url('/assets/css/reset.css');
+@import url('/assets/css/global.css');
+
+body {
+    background-color: var(--primary-color); /*dentro do parenteses é uma variável na sintaxe do css*/
+}
+
+body::before { /*esse ::before é um subelemento, como se fossem elementos virtuais e conseguimos aplicar o css nele, que entraria no body (nesse caso)*/
+    content: "";
+    background-image: url(/assets/images/spider-man-background.jpg);
+    background-repeat: no-repeat; /*essa propriedade é para a imagem não se repetir caso ela acabe na página*/
+    background-position: center;
+    background-size: cover; /*Propriedade para respeitar os outros elementos na página, ou seja, para ela não se sobrepor aos outros*/
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    opacity: 0.2;
+    transition: background-image 1s ease-in-out, opacity 1s ease-in-out;
+}
+
+.s-menu {
+    padding: 1rem 0; /* rem é uma propriedade relativa, e vai decidir quais pixels vai ter a fonte, no caso, 1x16= 16px*/
+    width: 100%;
+    text-align: center;
+    position: relative;
+}
+
+.s-menu__item {
+    display: inline-block;
+    text-transform: uppercase;
+    margin: 0 1.25rem;
+}
+
+.s-menu__icon {
+    display: inline-block;
+    width: 2.5rem;
+    margin: 0 1.25rem;
+    vertical-align: middle;
+}
+
+.s-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    perspective: 3000px;
+}
+
+.s-card {
+    border: 0.5rem solid white;
+    width: 100%;
+    height: 70vh;
+    position: absolute;
+    transition: filter .5s ease-in-out; 
+}
+
+.s-card:nth-child(1) {
+    transform: rotateY(0deg) translateZ(50vw);
+}
+
+.s-card:nth-child(2) {
+    transform: rotateY(120deg) translateZ(50vw);
+}
+
+.s-card:nth-child(3) {
+    transform: rotateY(240deg) translateZ(50vw);
+}
+
+.s-card__background {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    opacity: 1;
+    transition: opacity 1s ease-in-out;
+}
+
+.s-card__image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    position: relative;
+    transition: 1s ease-in-out;
+}
+
+.s-card__title {
+    font-size: 2rem;
+    text-transform: uppercase;
+    text-align: center;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    transition: bottom 1s ease-in-out;
+}
+
+.s-controller {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3rem;
+    bottom: 1.5rem;
+    width: 100%;
+}
+
+.s-controller__button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 2px solid white;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    text-align: center;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 1;
+    transition: transform 0.3s ease-in-out; /*essa propriedade é responsável pelo tempo que os circulos ficaram maiores.*/
+}
+
+.s-controller__button:hover { /*Essa propriedade tem como o objetivo de aumentar os circulos em 100% + 10% = 1.1*/
+    transform: scale(1.1);
+}
+
+.s-controller__button:nth-child(2) { /*o nth... significa que eu estou pegando o segundo elemento com a classe __button, ou seja, passei o parâmetro 2, para dizer que vai ser estilizado o 
+    segundo elemento.*/
+    margin: 0 3.75rem;
+}
+.s-controller__line {
+    background-color: white;
+    width: 50%;
+    height: 2px;
+    position: absolute;
+}
+
+.s-controller__button--active {
+    background-color: white;
+    color: var(--primary-color);
+    border: 0.18rem solid var(--primary-color);
+    outline: 0.125rem solid white; /*O outline serve para colocar uma borda junto com outra borda*/
+ }
+
+ .s-cards-carousel {
+     display: flex;
+     justify-content: center;
+     width: calc(100vw / 3 - 10%);
+     transform-style: preserve-3d;
+     transition: transform 0.4s ease-in-out;
+ }
+/*Hover animation*/
+
+.s-card--hovered .s-card__background {
+    cursor: pointer;
+    opacity: 0;
+}
+
+.s-card--hovered .s-card__image {
+    transform: scale(1.4);
+    filter: drop-shadow(30px 10px 4px rgba(0, 0, 0, .5));
+}
+
+body#spider-man-01-hovered::before {
+    background-image: url(/assets/images/pic-sm-bg-01.jpg);
+}
+
+body#spider-man-02-hovered::before {
+    background-image: url(/assets/images/pic-sm-bg-02.jpg);
+}
+
+body#spider-man-03-hovered::before {
+    background-image: url(/assets/images/pic-sm-bg-03.jpg);
+}
+
+body[id^="spider-man-"]::before {
+    opacity: 1;
+}
+
+body[id^="spider-man-"] .s-card:not(.s-card--hovered) {
+    filter: grayscale(100%);
+}
+.s-card--hovered .s-card__title {
+    bottom: 25%;
+}
